@@ -47,4 +47,16 @@ class HomeController extends AbstractController
             'formulaire'        => $form->createView(),
         ]);
     }
+
+    /**
+     * @Route("/liste-des-films", name="liste_des_films")
+     */
+    public function listeDesFilms(EntityManagerInterface $em): Response
+    {
+        $movies = $em->getRepository(Movie::class)->findAll();
+
+        return $this->render('home/liste_des_films.html.twig', [
+            'movies'            => $movies,
+        ]);
+    }
 }
