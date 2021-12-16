@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Movie;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -10,10 +12,15 @@ class HomeController extends AbstractController
 {
     /**
      * @Route("/home", name="home")
-     * @Route("/coucou", name="home_new")
      */
-    public function index(): Response
+    public function index(EntityManagerInterface $em): Response
     {
+        $movie = new Movie();
+        $movie->setName('The Return of the King');
+
+        $em->persist($movie);
+        $em->flush();
+
         return $this->render('home/index.html.twig', [
             'controller_name' => 'HomeController',
         ]);
