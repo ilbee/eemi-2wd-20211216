@@ -16,13 +16,14 @@ class HomeController extends AbstractController
     public function index(EntityManagerInterface $em): Response
     {
         $movie = new Movie();
-        $movie->setName('The Return of the King');
+        $movie->setName('The Matrix');
 
         $em->persist($movie);
         $em->flush();
 
         return $this->render('home/index.html.twig', [
-            'controller_name' => 'HomeController',
+            'controller_name'   => 'HomeController',
+            'movie'             => $movie,
         ]);
     }
 }
