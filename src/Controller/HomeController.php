@@ -23,10 +23,16 @@ class HomeController extends AbstractController
 
     /**
      * @Route("/creation-dun-film", name="home")
+     * @Route("/modifier-un-film/{id}", name="form_edit")
      */
-    public function index(EntityManagerInterface $em, Request $request): Response
+    public function index(EntityManagerInterface $em, Request $request, int $id = null): Response
     {
         $movie = new Movie();
+        if ( $id !== null ) {
+            $repository = $em->getRepository(Movie::class);
+            $movie = $repository->findOneBy(['id' => $id]);
+        }
+
         $formBuilder = $this->createFormBuilder($movie);
         $formBuilder->add('name', TextType::class);
         $formBuilder->add('save', SubmitType::class, ['label' => 'Add movie']);
@@ -46,7 +52,22 @@ class HomeController extends AbstractController
         return $this->render('home/index.html.twig', [
             'controller_name'   => 'HomeController',
             'formulaire'        => $form->createView(),
+            'movie'             => $movie,
         ]);
+    }
+
+    /**
+     * @Route("/supprimer-un-film/{id}", name="remove_movie")
+     */
+    public function removeMovie(EntityManagerInterface $em, int $id): Response
+    {
+        $repository = $em->getRepository(Movie::class);
+        $movie = $repository->findOneBy(['id' => $id]);
+
+        $em->remove($movie);
+        $em->flush();
+
+        return $this->redirectToRoute('liste_des_films');
     }
 
     /**

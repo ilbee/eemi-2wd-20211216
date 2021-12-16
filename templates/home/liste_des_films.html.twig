@@ -5,7 +5,10 @@
 {% block body %}
     <ul>
         {% for movie in movies %}
-            <li>{{ movie.name }}</li>
+            <li>
+                <a href="{{ path('form_edit', {'id': movie.id}) }}">{{ movie.name }}</a>
+                (<a href="{{ path('remove_movie', {'id': movie.id}) }}">X</a>)
+            </li>
         {% endfor %}
     </ul>
 {% endblock %}

@@ -4,4 +4,8 @@
 
 {% block body %}
     {{ form(formulaire) }}
+
+    {% if movie.id is not null %}
+        <a href="{{ path('remove_movie', {'id': movie.id}) }}">Supprimer le film</a>
+    {% endif %}
 {% endblock %}
