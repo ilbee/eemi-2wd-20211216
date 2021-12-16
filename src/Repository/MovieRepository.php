@@ -34,9 +34,8 @@ class MovieRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
-    */
 
-    /*
+
     public function findOneBySomeField($value): ?Movie
     {
         return $this->createQueryBuilder('m')
@@ -45,6 +44,5 @@ class MovieRepository extends ServiceEntityRepository
             ->getQuery()
             ->getOneOrNullResult()
         ;
-    }
-    */
+    }*/
 }

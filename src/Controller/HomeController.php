@@ -40,6 +40,7 @@ class HomeController extends AbstractController
             $em->persist($movie);
             $em->flush();
 
+            return $this->redirectToRoute('liste_des_films');
         }
 
         return $this->render('home/index.html.twig', [
@@ -53,10 +54,11 @@ class HomeController extends AbstractController
      */
     public function listeDesFilms(EntityManagerInterface $em): Response
     {
-        $movies = $em->getRepository(Movie::class)->findAll();
+        $repository = $em->getRepository(Movie::class);
+        $movies = $repository->findAll();
 
         return $this->render('home/liste_des_films.html.twig', [
-            'movies'            => $movies,
+            'movies'    => $movies,
         ]);
     }
 }
