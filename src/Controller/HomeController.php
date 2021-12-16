@@ -14,17 +14,24 @@ use Symfony\Component\Routing\Annotation\Route;
 class HomeController extends AbstractController
 {
     /**
-     * @Route("/home", name="home")
+     * @Route("/", name="accueil")
+     */
+    public function accueil(): Response
+    {
+        return $this->render('home/accueil.html.twig');
+    }
+
+    /**
+     * @Route("/creation-dun-film", name="home")
      */
     public function index(EntityManagerInterface $em, Request $request): Response
     {
         $movie = new Movie();
-        $form = $this
-            ->createFormBuilder($movie)
-            ->add('name', TextType::class)
-            ->add('save', SubmitType::class)
-            ->getForm();
+        $formBuilder = $this->createFormBuilder($movie);
+        $formBuilder->add('name', TextType::class);
+        $formBuilder->add('save', SubmitType::class, ['label' => 'Add movie']);
 
+        $form = $formBuilder->getForm();
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

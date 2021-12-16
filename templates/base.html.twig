@@ -14,6 +14,22 @@
         {% endblock %}
     </head>
     <body>
-        {% block body %}{% endblock %}
+        <header>
+            <h1>Ma merveilleuse app</h1>
+            <nav>
+                <ul>
+                    <li><a href="{{ path('accueil') }}">Accueil</a></li>
+                    <li><a href="{{ path('home') }}">Formulaire</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        {% block body %}
+            Block body par défaut
+        {% endblock %}
+
+        <footer style="text-align: center; font-size:10px; color: #E2E2E2;">
+            Mon footer
+        </footer>
     </body>
 </html>
