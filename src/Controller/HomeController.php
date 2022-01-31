@@ -35,6 +35,7 @@ class HomeController extends AbstractController
 
         $formBuilder = $this->createFormBuilder($movie);
         $formBuilder->add('name', TextType::class);
+        $formBuilder->add('picture', TextType::class);
         $formBuilder->add('save', SubmitType::class, ['label' => 'Add movie']);
 
         $form = $formBuilder->getForm();
@@ -50,7 +51,6 @@ class HomeController extends AbstractController
         }
 
         return $this->render('home/index.html.twig', [
-            'controller_name'   => 'HomeController',
             'formulaire'        => $form->createView(),
             'movie'             => $movie,
         ]);
